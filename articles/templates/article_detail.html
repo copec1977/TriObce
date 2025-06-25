@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.description }}</p>
+
+    <h2>Activities</h2>
+    <ul>
+    {% for activity in article.activities.all %}
+        <li>{{ activity.description }} - <a href="{{ activity.file.url }}">file</a></li>
+    {% empty %}
+        <li>No activities yet.</li>
+    {% endfor %}
+    </ul>
+
+    <h3>Add Activity</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+
+    <p><a href="{% url 'index' %}">Back to list</a></p>
+</body>
+</html>
